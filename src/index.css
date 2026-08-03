@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* =========================================================
+   WANAS GROUP — DESIGN SYSTEM
+   Real Estate Development & Management
+   ========================================================= */
+
+@theme {
+  /* =======================================================
+     BRAND — FOREST GREEN
+     ======================================================= */
+
+  --color-wanas-50: #effaf8;
+  --color-wanas-100: #d9f2ee;
+  --color-wanas-200: #b7e5df;
+  --color-wanas-300: #88d1c8;
+  --color-wanas-400: #51b7ab;
+  --color-wanas-500: #24998e;
+  --color-wanas-600: #0b766e;
+  --color-wanas-700: #0b6b63;
+  --color-wanas-800: #09574f;
+  --color-wanas-900: #06443f;
+  --color-wanas-950: #042524;
+
+  /* =======================================================
+     BRAND — DARK
+     ======================================================= */
+
+  --color-wanas-dark: #071f2a;
+  --color-wanas-dark-soft: #0d2b35;
+  --color-wanas-dark-light: #163944;
+
+  /* =======================================================
+     BRAND — CREAM
+     ======================================================= */
+
+  --color-wanas-cream-50: #fcfaf7;
+  --color-wanas-cream-100: #f7f1ea;
+  --color-wanas-cream-200: #eee3d5;
+  --color-wanas-cream-300: #e9d9c7;
+  --color-wanas-cream-400: #dfc8ad;
+  --color-wanas-cream-500: #d3b595;
+
+  /* =======================================================
+     BRAND — GOLD
+     ======================================================= */
+
+  --color-wanas-gold-100: #fbf4e9;
+  --color-wanas-gold-200: #f7eedf;
+  --color-wanas-gold-300: #e8c99b;
+  --color-wanas-gold-400: #ddb77f;
+  --color-wanas-gold-500: #d8a96a;
+  --color-wanas-gold-600: #c49152;
+  --color-wanas-gold-700: #a8753d;
+
+  /* =======================================================
+     BACKGROUNDS
+     ======================================================= */
+
+  --color-app: #f7f9f8;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f2f6f5;
+  --color-surface-muted: #edf2f1;
+
+  /* =======================================================
+     TEXT
+     ======================================================= */
+
+  --color-text-primary: #14252a;
+  --color-text-secondary: #52646a;
+  --color-text-muted: #89969a;
+  --color-text-disabled: #b6c0c2;
+
+  /* =======================================================
+     BORDERS
+     ======================================================= */
+
+  --color-border: #e4eae8;
+  --color-border-light: #edf1f0;
+  --color-border-strong: #d5deda;
+
+  /* =======================================================
+     STATUS — SUCCESS
+     ======================================================= */
+
+  --color-success-50: #effaf6;
+  --color-success-100: #e8f7f1;
+  --color-success-500: #159a72;
+  --color-success-600: #10815f;
+  --color-success-700: #0c684e;
+
+  /* =======================================================
+     STATUS — WARNING
+     ======================================================= */
+
+  --color-warning-50: #fffaf0;
+  --color-warning-100: #fff5df;
+  --color-warning-500: #d99a24;
+  --color-warning-600: #b97e16;
+  --color-warning-700: #936312;
+
+  /* =======================================================
+     STATUS — DANGER
+     ======================================================= */
+
+  --color-danger-50: #fff5f5;
+  --color-danger-100: #fdecec;
+  --color-danger-500: #d9534f;
+  --color-danger-600: #c43f3b;
+  --color-danger-700: #a9312e;
+
+  /* =======================================================
+     STATUS — INFO
+     ======================================================= */
+
+  --color-info-50: #f2f7fb;
+  --color-info-100: #eaf2f8;
+  --color-info-500: #3978a8;
+  --color-info-600: #2f668f;
+  --color-info-700: #285475;
+
+  /* =======================================================
+     TYPOGRAPHY
+     ======================================================= */
+
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
+  /* =======================================================
+     SHADOWS
+     ======================================================= */
+
+  --shadow-card:
+    0 1px 3px rgb(20 37 42 / 0.04), 0 4px 16px rgb(20 37 42 / 0.04);
+
+  --shadow-card-hover:
+    0 4px 6px rgb(20 37 42 / 0.05), 0 10px 25px rgb(20 37 42 / 0.07);
+
+  --shadow-dropdown: 0 8px 24px rgb(20 37 42 / 0.12);
+
+  /* =======================================================
+     ANIMATIONS
+     ======================================================= */
+
+  --animate-fade-up: fade-up 0.5s ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-wanas-600) var(--color-surface-soft);
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: var(--color-app);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-wanas-600) var(--color-surface-soft);
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--color-surface-soft);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-wanas-600);
+    border-radius: var(--radius-md);
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-wanas-700);
+  }
+}
