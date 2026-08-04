@@ -6,7 +6,11 @@ const EmptyState = ({
   description,
   actionLabel,
   actionTo,
+  onAction,
 }) => {
+  const actionClassName =
+    "mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-wanas-600 px-5 text-sm font-semibold text-white transition-colors hover:bg-wanas-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600 focus-visible:ring-offset-2";
+
   return (
     <div className="flex min-h-64 flex-col items-center justify-center px-4 py-12 text-center">
       {Icon ? (
@@ -18,11 +22,13 @@ const EmptyState = ({
       {description ? (
         <p className="mt-2 max-w-md text-sm text-text-secondary">{description}</p>
       ) : null}
-      {actionLabel && actionTo ? (
-        <Link
-          to={actionTo}
-          className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-wanas-600 px-5 text-sm font-semibold text-white transition-colors hover:bg-wanas-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600 focus-visible:ring-offset-2"
-        >
+      {actionLabel && onAction ? (
+        <button type="button" onClick={onAction} className={actionClassName}>
+          {actionLabel}
+        </button>
+      ) : null}
+      {actionLabel && actionTo && !onAction ? (
+        <Link to={actionTo} className={actionClassName}>
           {actionLabel}
         </Link>
       ) : null}

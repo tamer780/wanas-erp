@@ -1,25 +1,6 @@
-import { Building2 } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const EditBuilding = () => {
-  return (
-    <PageScaffold
-      title="Edit Building"
-      description="Update building information."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Buildings", to: "/buildings" },
-        { label: "Edit" },
-      ]}
-    >
-      <EmptyState
-        icon={Building2}
-        title="Edit Building"
-        description="The edit form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const EditBuilding = () => <Navigate to={paths.buildings} replace />;
 
 export default EditBuilding;

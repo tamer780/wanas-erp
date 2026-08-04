@@ -1,25 +1,6 @@
-import { DoorOpen } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const CreateUnit = () => {
-  return (
-    <PageScaffold
-      title="Create Unit"
-      description="Add a new unit to the system."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Units", to: "/units" },
-        { label: "Create" },
-      ]}
-    >
-      <EmptyState
-        icon={DoorOpen}
-        title="Create Unit"
-        description="The create form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const CreateUnit = () => <Navigate to={paths.units} replace />;
 
 export default CreateUnit;

@@ -1,25 +1,6 @@
-import { Building2 } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const CreateBuilding = () => {
-  return (
-    <PageScaffold
-      title="Create Building"
-      description="Add a new building to the system."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Buildings", to: "/buildings" },
-        { label: "Create" },
-      ]}
-    >
-      <EmptyState
-        icon={Building2}
-        title="Create Building"
-        description="The create form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const CreateBuilding = () => <Navigate to={paths.buildings} replace />;
 
 export default CreateBuilding;

@@ -1,25 +1,6 @@
-import { Users } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const ClientDetails = () => {
-  return (
-    <PageScaffold
-      title="Client Details"
-      description="View detailed information for this client."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Clients", to: "/clients" },
-        { label: "Details" },
-      ]}
-    >
-      <EmptyState
-        icon={Users}
-        title="Client Details"
-        description="Client details will appear here once data is connected."
-      />
-    </PageScaffold>
-  );
-};
+const ClientDetails = () => <Navigate to={paths.clients} replace />;
 
 export default ClientDetails;

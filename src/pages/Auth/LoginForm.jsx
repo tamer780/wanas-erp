@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import logo from "../../assets/images/WanasLogo.jpeg";
 import Button from "../../components/ui/Button";
 import Checkbox from "../../components/ui/Checkbox";
 import Input from "../../components/ui/Input";
+import { paths } from "../../routes/pathnames";
+import authService from "../../services/auth/auth.service";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -45,6 +48,7 @@ const validate = (values) => {
 };
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -80,8 +84,22 @@ const LoginForm = () => {
 
     setLoading(true);
     try {
-      // Simulated auth — replace with API call when ready
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const { data } = await authService.login({
+        email: email.trim(),
+        password,
+      });
+
+      const token = data.data.token;
+      const user = data.data.user;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate(paths.dashboard);
+    } catch (error) {
+      setErrors({
+        form:
+          error.response?.data?.message || "Invalid email or password.",
+      });
     } finally {
       setLoading(false);
     }
@@ -104,6 +122,15 @@ const LoginForm = () => {
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+        {errors.form && (
+          <p
+            role="alert"
+            className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {errors.form}
+          </p>
+        )}
+
         <Input
           id="email"
           label="Email address"
@@ -115,6 +142,7 @@ const LoginForm = () => {
           onChange={(e) => {
             setEmail(e.target.value);
             clearFieldError("email");
+            clearFieldError("form");
           }}
           onBlur={() => handleBlur("email")}
           error={errors.email}
@@ -147,6 +175,7 @@ const LoginForm = () => {
             onChange={(e) => {
               setPassword(e.target.value);
               clearFieldError("password");
+              clearFieldError("form");
             }}
             onBlur={() => handleBlur("password")}
             error={errors.password}
