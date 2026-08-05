@@ -1,25 +1,8 @@
-import { Package } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const CreateMaterialPurchase = () => {
-  return (
-    <PageScaffold
-      title="Create Material Purchase"
-      description="Add a new material purchase to the system."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Material Purchases", to: "/material-purchases" },
-        { label: "Create" },
-      ]}
-    >
-      <EmptyState
-        icon={Package}
-        title="Create Material Purchase"
-        description="The create form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const CreateMaterialPurchase = () => (
+  <Navigate to={paths.materialPurchases} replace />
+);
 
 export default CreateMaterialPurchase;

@@ -1,25 +1,6 @@
-import { HardHat } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const EditContractor = () => {
-  return (
-    <PageScaffold
-      title="Edit Contractor"
-      description="Update contractor information."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Contractors", to: "/contractors" },
-        { label: "Edit" },
-      ]}
-    >
-      <EmptyState
-        icon={HardHat}
-        title="Edit Contractor"
-        description="The edit form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const EditContractor = () => <Navigate to={paths.contractors} replace />;
 
 export default EditContractor;

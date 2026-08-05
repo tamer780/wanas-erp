@@ -1,25 +1,6 @@
-import { Truck } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const EditSupplier = () => {
-  return (
-    <PageScaffold
-      title="Edit Supplier"
-      description="Update supplier information."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Suppliers", to: "/suppliers" },
-        { label: "Edit" },
-      ]}
-    >
-      <EmptyState
-        icon={Truck}
-        title="Edit Supplier"
-        description="The edit form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const EditSupplier = () => <Navigate to={paths.suppliers} replace />;
 
 export default EditSupplier;

@@ -16,7 +16,8 @@ export const paths = {
   payablePayments: "/payable-payments",
   financialTransactions: "/financial-transactions",
   reports: "/reports",
-  incomeExpense: "/reports/income-expense",
+  incomeExpense: "/reports",
   auditLogs: "/audit-logs",
+  auditLogDetails: (id) => `/audit-logs/${id}`,
   settings: "/settings",
 };

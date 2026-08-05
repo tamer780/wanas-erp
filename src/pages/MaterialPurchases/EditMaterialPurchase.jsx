@@ -1,25 +1,8 @@
-import { Package } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const EditMaterialPurchase = () => {
-  return (
-    <PageScaffold
-      title="Edit Material Purchase"
-      description="Update material purchase information."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Material Purchases", to: "/material-purchases" },
-        { label: "Edit" },
-      ]}
-    >
-      <EmptyState
-        icon={Package}
-        title="Edit Material Purchase"
-        description="The edit form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const EditMaterialPurchase = () => (
+  <Navigate to={paths.materialPurchases} replace />
+);
 
 export default EditMaterialPurchase;

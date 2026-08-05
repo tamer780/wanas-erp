@@ -7,11 +7,14 @@ const unitSalesService = {
   getById: (id) => api.get(endpoints.unitSales.byId(id)),
   update: (id, data) => api.put(endpoints.unitSales.byId(id), data),
   remove: (id) => api.delete(endpoints.unitSales.byId(id)),
-  getContract: (id) => api.get(endpoints.unitSales.contract(id)),
+  getContract: (id) =>
+    api.get(endpoints.unitSales.contract(id), { responseType: "blob" }),
   getPayments: (id, params) =>
     api.get(endpoints.unitSales.payments(id), { params }),
   getInstallments: (id, params) =>
     api.get(endpoints.unitSales.installments(id), { params }),
+  createPayment: (id, data) =>
+    api.post(endpoints.unitSales.payments(id), data),
 };
 
 export default unitSalesService;

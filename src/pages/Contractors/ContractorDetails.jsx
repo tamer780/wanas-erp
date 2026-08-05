@@ -1,25 +1,6 @@
-import { HardHat } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const ContractorDetails = () => {
-  return (
-    <PageScaffold
-      title="Contractor Details"
-      description="View detailed information for this contractor."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Contractors", to: "/contractors" },
-        { label: "Details" },
-      ]}
-    >
-      <EmptyState
-        icon={HardHat}
-        title="Contractor Details"
-        description="Contractor details will appear here once data is connected."
-      />
-    </PageScaffold>
-  );
-};
+const ContractorDetails = () => <Navigate to={paths.contractors} replace />;
 
 export default ContractorDetails;

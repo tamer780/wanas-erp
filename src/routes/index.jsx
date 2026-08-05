@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import LandingLayout from "../layouts/LandingLayout";
 import AuthLayout from "../layouts/AuthLayout";
@@ -72,7 +72,6 @@ import FinancialTransactionDetails from "../pages/FinancialTransactions/Financia
 import CreateFinancialTransaction from "../pages/FinancialTransactions/CreateFinancialTransaction";
 
 import Reports from "../pages/Reports/Reports";
-import IncomeExpense from "../pages/Reports/IncomeExpense";
 
 import AuditLogs from "../pages/AuditLogs/AuditLogs";
 import AuditLogDetails from "../pages/AuditLogs/AuditLogDetails";
@@ -186,7 +185,10 @@ export const router = createBrowserRouter([
       },
 
       { path: "/reports", Component: Reports },
-      { path: "/reports/income-expense", Component: IncomeExpense },
+      {
+        path: "/reports/income-expense",
+        element: <Navigate to="/reports" replace />,
+      },
 
       { path: "/audit-logs", Component: AuditLogs },
       { path: "/audit-logs/:id", Component: AuditLogDetails },
