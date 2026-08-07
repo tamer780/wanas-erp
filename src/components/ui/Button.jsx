@@ -45,7 +45,7 @@ const Button = ({
       type={type}
       disabled={isDisabled}
       className={`
-        inline-flex items-center justify-center gap-2
+        inline-flex cursor-pointer items-center justify-center gap-2
         font-semibold
         transition-colors duration-200
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600

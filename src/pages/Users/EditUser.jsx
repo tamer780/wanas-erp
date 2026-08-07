@@ -1,25 +1,6 @@
-import { UserCog } from "lucide-react";
-import PageScaffold from "../../components/common/PageScaffold";
-import EmptyState from "../../components/common/EmptyState";
+import { Navigate } from "react-router-dom";
+import { paths } from "../../routes/pathnames";
 
-const EditUser = () => {
-  return (
-    <PageScaffold
-      title="Edit User"
-      description="Update user information."
-      breadcrumbs={[
-        { label: "Dashboard", to: "/dashboard" },
-        { label: "Users", to: "/users" },
-        { label: "Edit" },
-      ]}
-    >
-      <EmptyState
-        icon={UserCog}
-        title="Edit User"
-        description="The edit form will appear here."
-      />
-    </PageScaffold>
-  );
-};
+const EditUser = () => <Navigate to={paths.users} replace />;
 
 export default EditUser;

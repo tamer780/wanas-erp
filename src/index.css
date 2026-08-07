@@ -184,6 +184,17 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  button[aria-disabled="true"],
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-wanas-600) var(--color-surface-soft);

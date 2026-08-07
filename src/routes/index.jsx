@@ -1,10 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import LandingLayout from "../layouts/LandingLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 
-import Home from "../pages/Landing/Home";
 import Login from "../pages/Auth/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import NotFound from "../pages/NotFound/NotFound";
@@ -88,8 +86,7 @@ const crudRoutes = (base, { List, Create, Details, Edit }) => [
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: LandingLayout,
-    children: [{ index: true, Component: Home }],
+    element: <Navigate to="/login" replace />,
   },
   {
     path: "/login",
