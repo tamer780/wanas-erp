@@ -14,7 +14,7 @@ const DashboardLayout = () => {
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
         <Topbar onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <main className="flex-1 py-6 pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-4 lg:pr-8">
           <Outlet />
         </main>
 

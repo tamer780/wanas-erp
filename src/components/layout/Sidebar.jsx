@@ -9,7 +9,7 @@ const linkClassName = ({ isActive }) =>
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600",
     isActive
       ? "bg-wanas-600 text-white"
-      : "text-text-secondary hover:bg-wanas-50 hover:text-wanas-700",
+      : "text-white/70 hover:bg-white/10 hover:text-white",
   ].join(" ");
 
 const Sidebar = ({ open = false, onClose }) => {
@@ -24,12 +24,12 @@ const Sidebar = ({ open = false, onClose }) => {
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex h-screen w-72 min-h-0 flex-col border-r border-border bg-surface transition-transform duration-200 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex h-screen w-72 min-h-0 flex-col bg-wanas-dark transition-transform duration-200 lg:static lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Main navigation"
       >
-        <div className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-border px-4">
+        <div className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-wanas-dark-light px-4">
           <NavLink
             to="/dashboard"
             className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600"
@@ -41,28 +41,28 @@ const Sidebar = ({ open = false, onClose }) => {
               className="size-9 shrink-0 rounded-lg object-cover"
             />
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-text-primary">
+              <p className="truncate text-sm font-semibold text-white">
                 Wanas Group
               </p>
-              <p className="truncate text-xs text-text-muted">ERP System</p>
+              <p className="truncate text-xs text-white/50">ERP System</p>
             </div>
           </NavLink>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex size-9 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-surface-soft hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600 lg:hidden"
+            className="inline-flex size-9 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600 lg:hidden"
             aria-label="Close sidebar"
           >
             <X className="size-5" />
           </button>
         </div>
 
-        <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
+        <nav className="sidebar-scroll min-h-0 flex-1 overflow-y-auto px-3 py-4">
           <ul className="space-y-5">
             {sidebarNavigation.map((group) => (
               <li key={group.id}>
                 {group.label ? (
-                  <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-text-muted">
+                  <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-white/40">
                     {group.label}
                   </p>
                 ) : null}

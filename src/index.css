@@ -167,6 +167,7 @@
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--color-wanas-600) var(--color-surface-soft);
+    
   }
 
   html,
@@ -216,5 +217,13 @@
 
   *::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-wanas-700);
+  }
+
+  .sidebar-scroll {
+    scrollbar-width: none;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -2,7 +2,7 @@ import { Menu, Bell, User } from "lucide-react";
 
 const Topbar = ({ onMenuClick }) => {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-border bg-surface/95 px-4 backdrop-blur sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-border bg-surface/95 py-0 pl-3 pr-4 backdrop-blur sm:pl-4 sm:pr-6 lg:pl-4 lg:pr-8">
       <div className="flex items-center gap-3">
         <button
           type="button"

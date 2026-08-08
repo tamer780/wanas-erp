@@ -17,7 +17,7 @@ const PageScaffold = ({
   }, [documentTitle, title]);
 
   return (
-    <div className="mx-auto w-full max-w-7xl">
+    <div className="w-full">
       <Breadcrumb items={breadcrumbs} />
       <PageHeader title={title} description={description} actions={actions} />
       <div className="min-h-72">{children}</div>

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Handshake, Plus } from "lucide-react";
 import PageScaffold from "../../components/common/PageScaffold";
 import EmptyState from "../../components/common/EmptyState";
@@ -7,12 +6,19 @@ import Button from "../../components/ui/Button";
 import UnitSaleSummaryCards from "../../components/unit-sales/UnitSaleSummaryCards";
 import UnitSalesToolbar from "../../components/unit-sales/UnitSalesToolbar";
 import UnitSaleTable from "../../components/unit-sales/UnitSaleTable";
+import UnitSaleFormModal from "../../components/unit-sales/UnitSaleFormModal";
+import UnitSaleDetailsModal from "../../components/unit-sales/UnitSaleDetailsModal";
 import DeleteUnitSaleDialog from "../../components/unit-sales/DeleteUnitSaleDialog";
 import UnitSalesLoadingSkeleton from "../../components/unit-sales/UnitSalesLoadingSkeleton";
 import UnitSalesErrorState from "../../components/unit-sales/UnitSalesErrorState";
 import { useToast } from "../../context/ToastContext";
-import { unitSalesService } from "../../services";
+import {
+  clientsService,
+  unitSalesService,
+  unitsService,
+} from "../../services";
 import { toNumber, translationText } from "../../utils/format";
+import { transitionModals } from "../../utils/modalTransition";
 
 const extractPaginatedList = (response) => {
   const body = response?.data;
@@ -33,7 +39,6 @@ const extractPaginatedList = (response) => {
 
 const UnitSales = () => {
   const toast = useToast();
-  const navigate = useNavigate();
   const entrancePlayed = useRef(false);
 
   const [sales, setSales] = useState([]);
@@ -48,6 +53,17 @@ const UnitSales = () => {
   const [search, setSearch] = useState("");
   const [saleType, setSaleType] = useState("");
   const [status, setStatus] = useState("");
+
+  const [unitOptions, setUnitOptions] = useState([]);
+  const [clientOptions, setClientOptions] = useState([]);
+
+  const [formOpen, setFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState("create");
+  const [editingSale, setEditingSale] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedSale, setSelectedSale] = useState(null);
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deletingSale, setDeletingSale] = useState(null);
@@ -87,9 +103,24 @@ const UnitSales = () => {
     }
   }, []);
 
+  const fetchOptions = useCallback(async () => {
+    try {
+      const [unitsRes, clientsRes] = await Promise.all([
+        unitsService.getAll(),
+        clientsService.getAll(),
+      ]);
+      setUnitOptions(extractPaginatedList(unitsRes).items);
+      setClientOptions(extractPaginatedList(clientsRes).items);
+    } catch {
+      setUnitOptions([]);
+      setClientOptions([]);
+    }
+  }, []);
+
   useEffect(() => {
     fetchSales(1);
-  }, [fetchSales]);
+    fetchOptions();
+  }, [fetchSales, fetchOptions]);
 
   useEffect(() => {
     if (!animateEntrance) return undefined;
@@ -150,14 +181,46 @@ const UnitSales = () => {
     setStatus("");
   };
 
-  const openCreate = () => navigate("/unit-sales/create");
-  const openDetails = (sale) => navigate(`/unit-sales/${sale.id}`);
-  const openEdit = (sale) => navigate(`/unit-sales/${sale.id}/edit`);
+  const openCreate = () => {
+    setFormMode("create");
+    setEditingSale(null);
+    setFormOpen(true);
+  };
+
+  const openEdit = (sale) => {
+    setFormMode("edit");
+    setEditingSale(sale);
+    setFormOpen(true);
+  };
+
+  const openDetails = (sale) => {
+    setSelectedSale(sale);
+    setDetailsOpen(true);
+  };
 
   const openDelete = (sale) => {
     setDeletingSale(sale);
     setDeleteError("");
     setDeleteOpen(true);
+  };
+
+  const handleFormSubmit = async (payload) => {
+    setSubmitting(true);
+    try {
+      if (formMode === "edit" && editingSale?.id) {
+        await unitSalesService.update(editingSale.id, payload);
+        toast.success("Unit sale updated successfully.");
+      } else {
+        await unitSalesService.create(payload);
+        toast.success("Unit sale created successfully.");
+      }
+      setFormOpen(false);
+      setEditingSale(null);
+      await fetchSales(currentPage, { soft: true });
+      await fetchOptions();
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleDelete = async () => {
@@ -170,6 +233,7 @@ const UnitSales = () => {
       setDeletingSale(null);
       toast.success("Unit sale deleted successfully.");
       await fetchSales(currentPage, { soft: true });
+      await fetchOptions();
     } catch (err) {
       setDeleteError(
         err?.response?.data?.message ||
@@ -261,8 +325,6 @@ const UnitSales = () => {
                 <UnitSaleTable
                   sales={filteredSales}
                   onView={openDetails}
-                  onEdit={openEdit}
-                  onDelete={openDelete}
                   animateEntrance={animateEntrance}
                   refreshing={refreshing}
                 />
@@ -303,6 +365,50 @@ const UnitSales = () => {
           </div>
         ) : null}
       </div>
+
+      <UnitSaleFormModal
+        open={formOpen}
+        mode={formMode}
+        sale={editingSale}
+        submitting={submitting}
+        unitOptions={unitOptions}
+        clientOptions={clientOptions}
+        onClose={() => {
+          if (!submitting) {
+            setFormOpen(false);
+            setEditingSale(null);
+          }
+        }}
+        onSubmit={handleFormSubmit}
+      />
+
+      <UnitSaleDetailsModal
+        open={detailsOpen}
+        sale={selectedSale}
+        onClose={() => {
+          setDetailsOpen(false);
+          setSelectedSale(null);
+        }}
+        onChanged={() => fetchSales(currentPage, { soft: true })}
+        onEdit={(sale) => {
+          transitionModals(
+            () => {
+              setDetailsOpen(false);
+              setSelectedSale(null);
+            },
+            () => openEdit(sale),
+          );
+        }}
+        onDelete={(sale) => {
+          transitionModals(
+            () => {
+              setDetailsOpen(false);
+              setSelectedSale(null);
+            },
+            () => openDelete(sale),
+          );
+        }}
+      />
 
       <DeleteUnitSaleDialog
         open={deleteOpen}

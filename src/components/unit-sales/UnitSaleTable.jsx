@@ -10,14 +10,11 @@ const COLUMNS = [
   "Paid",
   "Status",
   "Date",
-  "Actions",
 ];
 
 const UnitSaleTable = ({
   sales,
   onView,
-  onEdit,
-  onDelete,
   animateEntrance = false,
   refreshing = false,
 }) => {
@@ -52,8 +49,6 @@ const UnitSaleTable = ({
                 key={sale.id}
                 sale={sale}
                 onView={onView}
-                onEdit={onEdit}
-                onDelete={onDelete}
                 index={index}
                 animateEntrance={animateEntrance}
               />

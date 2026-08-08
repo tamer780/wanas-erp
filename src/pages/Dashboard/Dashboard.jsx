@@ -6,7 +6,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-full max-w-7xl">
+    <div className="w-full">
       <nav aria-label="Breadcrumb" className="mb-4">
         <ol className="flex items-center gap-1.5 text-sm">
           <li>

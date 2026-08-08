@@ -19,5 +19,4 @@ export const paths = {
   incomeExpense: "/reports",
   auditLogs: "/audit-logs",
   auditLogDetails: (id) => `/audit-logs/${id}`,
-  settings: "/settings",
 };

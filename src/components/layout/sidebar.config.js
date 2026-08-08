@@ -15,7 +15,6 @@ import {
   BarChart3,
   UserCog,
   ScrollText,
-  Settings,
 } from "lucide-react";
 
 export const sidebarNavigation = [
@@ -88,12 +87,6 @@ export const sidebarNavigation = [
     items: [
       { label: "Users", to: "/users", icon: UserCog },
       { label: "Audit Logs", to: "/audit-logs", icon: ScrollText },
-    ],
-  },
-  {
-    id: "settings",
-    items: [
-      { label: "Settings", to: "/settings", icon: Settings },
     ],
   },
 ];

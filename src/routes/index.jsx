@@ -74,8 +74,6 @@ import Reports from "../pages/Reports/Reports";
 import AuditLogs from "../pages/AuditLogs/AuditLogs";
 import AuditLogDetails from "../pages/AuditLogs/AuditLogDetails";
 
-import Settings from "../pages/Settings/Settings";
-
 const crudRoutes = (base, { List, Create, Details, Edit }) => [
   { path: base, Component: List },
   { path: `${base}/create`, Component: Create },
@@ -189,8 +187,6 @@ export const router = createBrowserRouter([
 
       { path: "/audit-logs", Component: AuditLogs },
       { path: "/audit-logs/:id", Component: AuditLogDetails },
-
-      { path: "/settings", Component: Settings },
     ],
   },
   {
