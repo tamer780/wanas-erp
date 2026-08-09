@@ -1,6 +1,29 @@
-import { Menu, Bell, User } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Menu, User, LogOut } from "lucide-react";
+import Button from "../ui/Button";
+import authService from "../../services/auth/auth.service";
+import { paths } from "../../routes/pathnames";
 
 const Topbar = ({ onMenuClick }) => {
+  const navigate = useNavigate();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await authService.logout();
+    } catch {
+      // Still clear local session if the API fails
+    } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate(paths.login);
+      setLoggingOut(false);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-border bg-surface/95 py-0 pl-3 pr-4 backdrop-blur sm:pl-4 sm:pr-6 lg:pl-4 lg:pr-8">
       <div className="flex items-center gap-3">
@@ -21,13 +44,6 @@ const Topbar = ({ onMenuClick }) => {
       </div>
 
       <div className="flex items-center gap-2">
-        <button
-          type="button"
-          className="inline-flex size-10 items-center justify-center rounded-xl text-text-secondary transition-colors hover:bg-surface-soft hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wanas-600"
-          aria-label="Notifications"
-        >
-          <Bell className="size-5" />
-        </button>
         <div className="inline-flex items-center gap-2 rounded-xl bg-surface-soft px-3 py-2">
           <span className="flex size-8 items-center justify-center rounded-full bg-wanas-100 text-wanas-700">
             <User className="size-4" aria-hidden="true" />
@@ -36,6 +52,18 @@ const Topbar = ({ onMenuClick }) => {
             Admin
           </span>
         </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          loading={loggingOut}
+          onClick={handleLogout}
+          aria-label="Logout"
+          className="shrink-0"
+        >
+          <LogOut className="size-4" aria-hidden="true" />
+          <span className="hidden sm:inline">Logout</span>
+        </Button>
       </div>
     </header>
   );
